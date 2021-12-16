@@ -1,0 +1,299 @@
+/*
+	Program to implement Binary Search Tree
+*/
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+struct node 
+{
+	int data;
+	struct node *l;
+	struct node *r;
+} *temp,*root=NULL,*avail ;
+
+struct node *create(int item);
+
+void insert();
+void insearch( struct node *t);
+void inorder(struct node *t);
+void postorder(struct node *t);
+void preorder(struct node *t);
+void search(int n);
+struct node * minval(struct node *no);
+struct node * deleted(struct node *t,int n);
+
+int found;
+int data;
+
+int main()
+{	int choice,n;
+	int choice1=1;
+	printf("\n ------------The Program to implement Binary Search Tree------------");
+	while(choice1==1)
+{
+		printf("\n \n The menu is:");
+		printf("\n 1.Insert in BST \n 2.Inorder in BST \n 3.Postorder in BST \n 4. Preorder in BST \n 5.Delete in BST\n 6.Search in BST \n 7.Exit");
+	
+		printf("\n Enter your choice:");
+		scanf("%d",&choice);
+	
+		switch(choice)
+		{
+			case 1:
+				printf("\n Insertion ");
+				insert();
+				break;
+			case 2:	
+				printf("\n Inorder");
+				inorder(root);
+				break;
+			case 3:	
+				printf("\n Postorder");
+				postorder(root);
+				break;
+			case 4:	
+				printf("\n Postorder");
+				preorder(root);
+				break;
+			case 5:	
+				{ 
+					printf("\n Deletion");
+					printf("\n Enter the data to be deleted: ");
+					scanf("%d",&n);
+					search(n);
+					if(found==1)
+					{
+						root=deleted(root,n);
+						printf("\n %d,the element has been deleted",n);
+						
+					}
+				}
+				break;
+				case 6:	
+				{
+					printf("\n Search in BST");
+					printf("\n Enter the data to be searched: ");
+					scanf("%d",&n);
+					search(n);
+				
+				}
+				break;	
+			case 7:	
+				printf("\n Exit");
+				choice1=0;
+				break;
+
+			default:
+				printf("\n Wrong Choice");
+		}
+}
+return 0;
+
+}	
+/*
+ Create node
+*/
+ struct node *create(int item)
+{
+	avail=(struct node*)malloc(sizeof(struct node));
+	if(avail==NULL)
+	{
+		printf("\n OverFlow Condition");
+		return 0;
+	}
+	else
+	{
+		avail->data=item;
+		avail->l=NULL;
+		avail->r=NULL;
+		return avail;
+	}
+}
+/*
+* Insert Function
+*/
+void insert()
+{
+	int item;
+	printf("\n Enter the element:");
+	scanf("%d",&item);
+	avail=create(item);
+	if(root==NULL)
+	{
+		root=avail;
+		root->l=NULL;
+		root->r=NULL;
+	}
+	else
+	{
+		insearch(root);
+	}
+	printf("INSERTION SUCCESSFULL");
+	
+}
+ /*
+ * search function for insertion
+ */
+ void insearch( struct node *t)
+ {
+ 	if((avail->data >t->data)&&(t->r!=NULL))
+		insearch(t->r);
+
+	else if((avail->data >t->data)&&(t->r==NULL))
+		t->r=avail;
+
+	else if((avail->data < t->data)&&(t->l!=NULL))
+		insearch(t->l);
+
+	else if((avail->data < t->data)&&(t->l==NULL))
+		t->l=avail;
+	
+ }
+ /*
+ * function for inorder
+ */
+ void inorder( struct node *t)
+ {
+ 	 if(root==NULL)
+ 		{
+ 			printf("\nUnderFlow Condition");
+		 }
+ else
+ {
+ 	 	if(t->l!=NULL)
+ 		inorder(t->l);
+ 	 
+ 		 printf("%d-->",t->data);
+ 	 
+ 	 	if(t->r!=NULL)
+ 		inorder(t->r);
+ }
+ 	
+ }
+ /*
+ * function for postorder
+ */
+ void postorder( struct node *t)
+ {
+ 	
+ 	 if(root==NULL)
+ 		{
+ 			printf("\nUnderFlow Condition");
+		 }
+ 	else
+ 	{
+ 	 	if(t->l!=NULL)
+ 		postorder(t->l);
+ 	 
+ 	 	if(t->r!=NULL)
+ 		postorder(t->r);
+ 		
+ 		printf("%d-->",t->data);
+ 	}
+ 	
+
+ }
+/*
+* function for preorder
+*/ 
+void preorder( struct node *t)
+{
+	if(root==NULL)
+ 		{
+ 			printf("\n UnderFlow Condition");
+		 }
+ 	else
+ 	{	
+ 		printf("%d-->",t->data);
+ 		
+ 	 	if(t->l!=NULL)
+ 		preorder(t->l);
+ 	 
+ 	 	if(t->r!=NULL)
+ 		preorder(t->r);
+ 		
+ 	}
+}
+/*
+*Function for searching the node
+*/
+void search(int n)
+{	struct node *temp=root;
+	if(root==NULL)
+	{
+		printf("\n Tree is empty");
+		found=0;
+		return;
+	}
+	else
+	{
+		while(temp!=NULL)
+		{	if(temp->data==n)
+			{
+				printf("\n Element found");
+				found=1;
+				return;
+			}
+			else if(n<temp->data)
+			{
+				temp=temp->l;
+			}
+			else 
+			{
+				temp-temp->r;
+			}
+			
+		}
+		printf("\n Element not found!!!");
+		found=0;
+		return;
+	
+	}
+}
+/*
+* Function for minimum value
+*/
+struct node * minval(struct node *no)
+{
+	struct node* ptr=no;
+	while (ptr!=NULL && ptr->l!=NULL)
+	{
+		ptr=ptr->l;
+	}
+	return ptr;
+	
+}
+/*
+* Function for deleting the node
+*/
+struct node * deleted(struct node *to, int n)
+{
+	if(root==NULL)
+	{
+		printf("\n Tree is empty");
+	}
+		if(n>to->data)
+		to->r=deleted(to->r,n);
+		else if(n<to->data)
+		to->l=deleted(to->l,n);
+		else
+		{
+			if(to->l==NULL)
+			{
+				struct node *temp=to->r;
+				free(to);
+				return temp;
+			}
+			else if(to->r==NULL)
+			{
+				struct node *temp=to->l;
+				free(to);
+				return temp;
+			}
+			struct node *temp=minval(to->r);
+			to->data=temp->data;
+			to->r=deleted(to->r,temp->data);
+		}
+		return to;
+}
