@@ -1,0 +1,61 @@
+/*
+* Program to implement Bubble_Sort technique using C Programming
+*/
+#include <stdio.h>
+#include <conio.h>
+#include <windows.h>
+
+void bubble_sort(int a[],int n);
+
+int main()
+{	
+	int n;
+	printf("\n Enter the  no. of elements to be inserted: ");
+	scanf("%d",&n);
+	int arr[n];
+	for(int i=0;i<n;i++)
+	{
+		printf("%d element inserted:",i+1);
+		scanf("%d",&arr[i]); 
+	}
+	printf("\n Successfully Element inserted");
+	
+	printf("\n Inserted Elements Are:");
+	for(int j=0;j<n;j++)
+	{
+		printf("%d-->\t",arr[j]);
+	}
+	
+	bubble_sort(arr,n);
+	return 0;
+}
+
+void bubble_sort(int a[],int n)
+{
+	int temp=0,flag;
+	system("cls");
+	printf("\n\t\t\t Bubble Sort Enabled");
+	for(int k=0;k<n;k++)
+	{	
+		flag=0;
+		for(int l=0;l<n;l++)
+		{
+			if(a[l]>a[l+1])
+			{
+				temp=a[l];
+				a[l]=a[l+1];
+				a[l+1]=temp;
+				flag=1;
+			}
+		}
+		if(flag==0)
+		break;
+	}
+	
+	printf("\n Sorted Elements Are:");
+	for(int j=0;j<n;j++)
+	{
+		printf("%d-->\t",a[j]);
+	}
+	
+}
