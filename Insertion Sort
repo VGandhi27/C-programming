@@ -1,0 +1,55 @@
+/*
+* Program to implement Insertion sort By using C programming language
+*/
+#include <stdio.h>
+#include<conio.h>
+
+void insertion_sort(int a[],int n);
+
+int main()
+{
+	int n;
+	printf("\n Enter the  no. of elements to be inserted: ");
+	scanf("%d",&n);
+	int arr[n];
+	for(int i=0;i<n;i++)
+	{
+		printf("%d element inserted:",i+1);
+		scanf("%d",&arr[i]); 
+	}
+	printf("\n Successfully Element inserted");
+	
+	printf("\n Inserted Elements Are:");
+	for(int j=0;j<n;j++)
+	{
+		printf("%d-->\t",arr[j]);
+	}
+		insertion_sort(arr,n);
+		
+	return 0;
+
+}
+void insertion_sort(int a[],int n)
+{
+	int key;
+	printf("\n\t\t\t Insertion Sort");
+	for(int i=0;i<n;i++)
+	{
+		key=a[i];
+		int j=i-1;
+		while(j>=0&& a[j]>key)
+		{
+			a[j+1]=a[j];
+			j=j-1;
+			
+		}
+		a[j+1]=key;
+	}
+	
+	printf("\n Sorted Elements Are:");
+	for(int j=0;j<n;j++)
+	{
+		printf("%d-->\t",a[j]);
+	}
+	
+}
