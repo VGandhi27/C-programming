@@ -1,0 +1,62 @@
+/*
+* Program to Implement Selection Sort by using C programming language
+*/
+#include <stdio.h>
+#include <conio.h>
+
+void selection_sort(int a[],int n);
+void swap(int *x,int*y);
+int main()
+{
+	int n;
+	printf("\n Enter the  no. of elements to be inserted: ");
+	scanf("%d",&n);
+	int arr[n];
+	for(int i=0;i<n;i++)
+	{
+		printf("%d element inserted:",i+1);
+		scanf("%d",&arr[i]); 
+	}
+	printf("\n Successfully Element inserted");
+	
+	printf("\n Inserted Elements Are:");
+	for(int j=0;j<n;j++)
+	{
+		printf("%d-->\t",arr[j]);
+	}
+	selection_sort(arr,n);
+	return 0;
+}
+
+void selection_sort(int a[],int n)
+{
+	int min=0;
+	printf("\n\t\t\t Selection Sort");
+	for(int i=0;i<n-1;i++)
+	{
+		min=i;
+		for(int j=i+1;j<n;j++)
+		{
+			if(a[min]>a[j])
+			{
+				min=j;
+			}
+		}
+		swap(&a[min],&a[i]);
+	}
+	
+	printf("\n Sorted Elements Are:");
+	for(int j=0;j<n;j++)
+	{
+		printf("%d-->\t",a[j]);
+	}
+
+	
+}
+
+void swap(int *x,int*y)
+{
+	int temp=*x;
+	*x=*y;
+	*y=temp;
+}
