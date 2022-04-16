@@ -1,0 +1,83 @@
+/* 
+  MergeSort
+*/
+#include<stdio.h>
+
+void MergeSort(int arr[],int beg,int end);
+void Merge(int arr[],int beg,int mid,int end);
+int main()
+{
+
+	int count;
+	int number[25];
+	printf("\n Enter the number of elements:");
+	scanf("%d",&count);
+	printf("\n Enter the element:");
+	for(int i=0;i<count;i++)
+	{
+		scanf("%d",&number[i]);
+	}
+	MergeSort(number,0,count-1);
+
+   printf("Order of Sorted elements: ");
+   for(int i=0;i<count;i++)
+      printf(" %d",number[i]);
+	
+	return 0;
+}
+
+void MergeSort(int arr[],int beg,int end)
+{
+	if(beg<end)
+	{
+		int mid=(beg+end)/2;
+		MergeSort(arr,beg,mid);
+		MergeSort(arr,mid+1,end);
+		Merge(arr,beg,mid,end);
+	}
+}
+void Merge(int arr[],int beg,int mid,int end)
+{
+	int i, j, k;  
+    int n1 = mid - beg + 1;    
+    int n2 = end - mid;    
+      
+    int LeftArray[n1], RightArray[n2]; 
+    
+    for (int i = 0; i < n1; i++)    
+    LeftArray[i] = arr[beg + i];    
+    for (int j = 0; j < n2; j++)    
+    RightArray[j] = arr[mid + 1 + j];    
+      
+    i = 0, /* initial index of first sub-array */  
+    j = 0; /* initial index of second sub-array */   
+    k = beg;  /* initial index of merged sub-array */  
+      
+    while (i < n1 && j < n2)    
+    {    
+        if(LeftArray[i] <= RightArray[j])    
+        {    
+            arr[k] = LeftArray[i];    
+            i++;    
+        }    
+        else    
+        {    
+            arr[k] = RightArray[j];    
+            j++;    
+        }    
+        k++;    
+    }    
+    while (i<n1)    
+    {    
+        arr[k] = LeftArray[i];    
+        i++;    
+        k++;    
+    }    
+      
+    while (j<n2)    
+    {    
+        arr[k] = RightArray[j];    
+        j++;    
+        k++;    
+    } 
+}
